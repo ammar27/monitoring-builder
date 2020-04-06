@@ -1,7 +1,15 @@
 import React from 'react';
+import './panel.css';
 
 export class Panel extends React.Component {
     render() {
-        return <h1>Header1</h1>;
+        return (
+            <div>
+                <div className="header">Control Panel</div>
+                <div className="section">
+                    <button>Create Service</button>
+                </div>
+            </div>
+        );
     }
 }
