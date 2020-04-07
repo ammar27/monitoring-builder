@@ -1,18 +1,9 @@
+//https://github.com/uber/react-digraph/blob/master/README.md
+
 import React from 'react';
 import { GraphView, IEdge, INode, LayoutEngineType } from 'react-digraph';
-import GraphConfig, {
-    // edgeTypes,
-    EMPTY_EDGE_TYPE,
-    EMPTY_TYPE,
-    NODE_KEY,
-    // nodeTypes,
-    // COMPLEX_CIRCLE_TYPE,
-    // POLY_TYPE,
-    // SPECIAL_CHILD_SUBTYPE,
-    SPECIAL_EDGE_TYPE,
-    SPECIAL_TYPE,
-    // SKINNY_TYPE,
-} from './graph-config'; // Configures node/edge types
+import GraphConfig, { EMPTY_EDGE_TYPE, DEFAULT_TYPE, UNHEALTHY_TYPE, HEALTHY_TYPE, NODE_KEY } from './graph-config'; // Configures node/edge types
+import './graph.css';
 
 type IGraphProps = {};
 
@@ -35,7 +26,17 @@ const sample: IGraph = {
         {
             id: 'start1',
             title: 'Start (0)',
-            type: SPECIAL_TYPE,
+            type: DEFAULT_TYPE,
+        },
+        {
+            id: 'start2',
+            title: 'Unhealthy (0)',
+            type: UNHEALTHY_TYPE,
+        },
+        {
+            id: 'start3',
+            title: 'Healthy (0)',
+            type: HEALTHY_TYPE,
         },
     ],
 };
@@ -80,7 +81,7 @@ export class Graph extends React.Component<IGraphProps, IGraphState> {
             {
                 id: Date.now(),
                 title: 'Node A',
-                type: SPECIAL_TYPE,
+                type: DEFAULT_TYPE,
                 x: 0,
                 y: 0,
             },
@@ -136,11 +137,11 @@ export class Graph extends React.Component<IGraphProps, IGraphState> {
         // could be used here to determine node type
         // There is also support for subtypes. (see 'sample' above)
         // The subtype geometry will underlay the 'type' geometry for a node
-        const type = Math.random() < 0.25 ? SPECIAL_TYPE : EMPTY_TYPE;
+        const type = DEFAULT_TYPE;
 
         const viewNode = {
             id: Date.now(),
-            title: '',
+            title: 'Service Name',
             type,
             x,
             y,
@@ -172,7 +173,7 @@ export class Graph extends React.Component<IGraphProps, IGraphState> {
         const graph = this.state.graph;
         // This is just an example - any sort of logic
         // could be used here to determine edge type
-        const type = sourceViewNode.type === SPECIAL_TYPE ? SPECIAL_EDGE_TYPE : EMPTY_EDGE_TYPE;
+        const type = EMPTY_EDGE_TYPE;
 
         const viewEdge = {
             source: sourceViewNode[NODE_KEY],
