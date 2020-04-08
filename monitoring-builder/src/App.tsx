@@ -1,6 +1,6 @@
 import React from 'react';
 import './App.css';
-import { Panel } from './control-panel/panel';
+import Panel from './control-panel/panel';
 import Graph from './graph/graph';
 
 function App() {

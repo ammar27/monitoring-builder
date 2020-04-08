@@ -1,26 +1,27 @@
 //https://github.com/uber/react-digraph/blob/master/README.md
 
 import React from 'react';
-import { GraphView, IEdge, INode, LayoutEngineType } from 'react-digraph';
+import { GraphView, IEdge, INode } from 'react-digraph';
 import GraphConfig, { EMPTY_EDGE_TYPE, DEFAULT_TYPE, UNHEALTHY_TYPE, HEALTHY_TYPE, NODE_KEY } from './graph-config'; // Configures node/edge types
 import './graph.css';
+import { GraphState, GraphElements } from '../interfaces';
 
 type IGraphProps = {};
 
-type IGraphState = {
-    graph: any;
-    selected: any;
-    totalNodes: number;
-    copiedNode: any;
-    layoutEngineType?: LayoutEngineType;
-};
+// type IGraphState = {
+//     graph: any;
+//     selected: any;
+//     totalNodes: number;
+//     copiedNode: any;
+//     layoutEngineType?: LayoutEngineType;
+// };
 
-type IGraph = {
-    nodes: INode[];
-    edges: IEdge[];
-};
+// type IGraph = {
+//     nodes: INode[];
+//     edges: IEdge[];
+// };
 
-const sample: IGraph = {
+const sample: GraphElements = {
     edges: [],
     nodes: [
         {
@@ -41,7 +42,7 @@ const sample: IGraph = {
     ],
 };
 
-export class Graph extends React.Component<IGraphProps, IGraphState> {
+export class Graph extends React.Component<IGraphProps, GraphState> {
     GraphView: any;
 
     constructor(props: IGraphProps) {
