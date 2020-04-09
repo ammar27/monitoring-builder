@@ -2,57 +2,41 @@
 
 import React from 'react';
 import { GraphView, IEdge, INode } from 'react-digraph';
-import GraphConfig, { EMPTY_EDGE_TYPE, DEFAULT_TYPE, UNHEALTHY_TYPE, HEALTHY_TYPE, NODE_KEY } from './graph-config'; // Configures node/edge types
+import GraphConfig, { EMPTY_EDGE_TYPE, DEFAULT_TYPE, NODE_KEY } from './graph-config'; // Configures node/edge types
 import './graph.css';
 import { GraphState, GraphElements } from '../interfaces';
+import { connect } from 'react-redux';
 
-type IGraphProps = {};
+// type IGraphProps = {};
 
-// type IGraphState = {
-//     graph: any;
-//     selected: any;
-//     totalNodes: number;
-//     copiedNode: any;
-//     layoutEngineType?: LayoutEngineType;
-// };
-
-// type IGraph = {
-//     nodes: INode[];
-//     edges: IEdge[];
-// };
-
-const sample: GraphElements = {
-    edges: [],
-    nodes: [
-        {
-            id: 'start1',
-            title: 'Start (0)',
-            type: DEFAULT_TYPE,
-        },
-        {
-            id: 'start2',
-            title: 'Unhealthy (0)',
-            type: UNHEALTHY_TYPE,
-        },
-        {
-            id: 'start3',
-            title: 'Healthy (0)',
-            type: HEALTHY_TYPE,
-        },
-    ],
+type ReducersState = {
+    service: GraphElements;
 };
 
-export class Graph extends React.Component<IGraphProps, GraphState> {
+function mapStateToProps(state: ReducersState) {
+    const newState = {
+        nodes: state.service.nodes,
+        edges: state.service.edges,
+    };
+
+    console.log('State changed', newState);
+    return newState;
+}
+
+class Graph extends React.Component<GraphElements, GraphState> {
     GraphView: any;
 
-    constructor(props: IGraphProps) {
+    constructor(props: GraphElements) {
         super(props);
 
         this.state = {
             copiedNode: null,
-            graph: sample,
+            graph: {
+                nodes: props.nodes,
+                edges: props.edges,
+            },
             selected: null,
-            totalNodes: sample.nodes.length,
+            totalNodes: props.nodes.length,
             layoutEngineType: undefined,
         };
 
@@ -61,7 +45,7 @@ export class Graph extends React.Component<IGraphProps, GraphState> {
 
     // Helper to find the index of a given node
     getNodeIndex(searchNode: INode | any) {
-        return this.state.graph.nodes.findIndex((node: any) => {
+        return this.props.nodes.findIndex((node: any) => {
             return node[NODE_KEY] === searchNode[NODE_KEY];
         });
     }
@@ -297,4 +281,4 @@ export class Graph extends React.Component<IGraphProps, GraphState> {
     }
 }
 
-export default Graph;
+export default connect(mapStateToProps, null)(Graph);

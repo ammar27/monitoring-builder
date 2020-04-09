@@ -10,7 +10,7 @@ function App() {
                 <Panel></Panel>
             </div>
             <div className="work-area">
-                <Graph></Graph>
+                <Graph nodes={[]} edges={[]}></Graph>
             </div>
         </div>
     );

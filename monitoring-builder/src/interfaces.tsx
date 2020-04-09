@@ -7,7 +7,7 @@ export interface NodeInfo {
 }
 
 export interface GraphState {
-    graph: any;
+    graph: GraphElements;
     selected: any;
     totalNodes: number;
     copiedNode: any;
